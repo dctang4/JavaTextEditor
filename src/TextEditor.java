@@ -16,6 +16,9 @@ public class TextEditor extends JFrame {
 	JSpinner fontSizeSpinner;
 	JButton fontColorButton;
 	JComboBox fontBox;
+	JRadioButton italicRadio;
+	JRadioButton boldRadio;
+//	JRadioButton underlineRadio;
 	
 	JMenuBar menuBar;
 	JMenu fileMenu;
@@ -28,10 +31,10 @@ public class TextEditor extends JFrame {
 		textArea = new JTextArea();
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		textArea.setFont(new Font("Arial", Font.PLAIN, 20));
+		textArea.setFont(new Font("Serif", Font.PLAIN, 20));
 		
 		scrollPane = new JScrollPane(textArea);
-		scrollPane.setPreferredSize(new Dimension(450, 450));
+		scrollPane.setPreferredSize(new Dimension(550, 550));
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		fontLabel = new JLabel("Font:");
@@ -49,6 +52,59 @@ public class TextEditor extends JFrame {
 			}
 			
 		});
+		
+		italicRadio = new JRadioButton("I");
+		italicRadio.setFont(new Font("Serif", Font.ITALIC, 12));
+		italicRadio.addActionListener(e -> {
+			if(textArea.getFont().getStyle() == Font.BOLD) {
+				
+				textArea.setFont(new Font(textArea.getFont().getFamily(), textArea.getFont().getStyle() + Font.ITALIC , textArea.getFont().getSize()));
+
+			}
+			else if (textArea.getFont().getStyle() == Font.PLAIN){
+				
+				textArea.setFont(new Font(textArea.getFont().getFamily(), Font.ITALIC , textArea.getFont().getSize()));
+
+			}
+			else if (textArea.getFont().getStyle() == Font.BOLD + Font.ITALIC){
+				
+				textArea.setFont(new Font(textArea.getFont().getFamily(), Font.BOLD , textArea.getFont().getSize()));
+				
+			} 
+			else {
+				
+				textArea.setFont(new Font(textArea.getFont().getFamily(), Font.PLAIN , textArea.getFont().getSize()));
+				
+			}
+		});
+		
+		boldRadio = new JRadioButton("B");
+		boldRadio.setFont(new Font("Serif", Font.BOLD, 12));
+		boldRadio.addActionListener(e -> {
+			if(textArea.getFont().getStyle() == Font.ITALIC) {
+				
+				textArea.setFont(new Font(textArea.getFont().getFamily(), textArea.getFont().getStyle() + Font.BOLD , textArea.getFont().getSize()));
+
+			}
+			else if (textArea.getFont().getStyle() == Font.PLAIN){
+				
+				textArea.setFont(new Font(textArea.getFont().getFamily(), Font.BOLD , textArea.getFont().getSize()));
+
+			}
+			else if (textArea.getFont().getStyle() == Font.BOLD + Font.ITALIC) {
+				
+				textArea.setFont(new Font(textArea.getFont().getFamily(), Font.ITALIC , textArea.getFont().getSize()));
+				
+			}
+			else {
+				
+				textArea.setFont(new Font(textArea.getFont().getFamily(), Font.PLAIN , textArea.getFont().getSize()));
+				
+			}
+		});
+		
+//		underlineRadio = new JRadioButton("U");
+//		underlineRadio.setFont(new Font("Serif", Font.UNDERLINE, 12));
 		
 		fontColorButton = new JButton("Color");
 		fontColorButton.addActionListener(e -> {
@@ -69,7 +125,7 @@ public class TextEditor extends JFrame {
 			textArea.setFont(new Font((String)fontBox.getSelectedItem(), textArea.getFont().getStyle(), textArea.getFont().getSize()));
 			
 		});
-		fontBox.setSelectedItem("Arial");
+		fontBox.setSelectedItem("Serif");
 		
 		// -------- MenuBar --------
 		
@@ -153,12 +209,15 @@ public class TextEditor extends JFrame {
 		this.setJMenuBar(menuBar);
 		this.add(fontLabel);
 		this.add(fontSizeSpinner);
+		this.add(italicRadio);
+		this.add(boldRadio);
+//		this.add(underlineRadio);
 		this.add(fontColorButton);
 		this.add(fontBox);
 		this.add(scrollPane);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Text Editor");
-		this.setSize(500, 500);
+		this.setSize(600, 600);
 		this.setLayout(new FlowLayout());
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
